@@ -9,25 +9,30 @@ on:
 jobs:
   build-test-docs:
     runs-on: ubuntu-latest
-
     steps:
       # 1) Check out the code
       - name: Checkout code
-        uses: actions/upload-artifact@v4
-        
+        uses: actions/checkout@v3
+
       # 2) Build Docker image
       - name: Build Docker image
         run: docker build -t my-petsc-dev-env .
 
       # 3) Build the project
       - name: Build inside Docker
-        run: docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace my-petsc-dev-env make all
+        run: docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          my-petsc-dev-env \
+          make all
 
       # 4) Run tests
       - name: Run tests inside Docker
-        run: docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace my-petsc-dev-env make test
-        # Or, if you have a specific target for tests like "make test" or "make check"
-        # adjust the command accordingly.
+        run: docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          my-petsc-dev-env \
+          make test
 
       # 5) Generate Doxygen documentation
       - name: Generate docs (Doxygen)
@@ -38,13 +43,10 @@ jobs:
             my-petsc-dev-env \
             doxygen Doxyfile
 
-      # (Optional) 6) Upload documentation as a workflow artifact
-      # This step uploads the generated HTML docs so you can view them in GitHub.
-      # Adjust the path to where Doxygen outputs your HTML.
+      # 6) Upload documentation as a workflow artifact (optional)
       - name: Upload Doxygen docs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: doxygen-html
-          path: |
-            ./html
+          path: ./html
