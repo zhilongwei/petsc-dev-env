@@ -1,0 +1,24 @@
+{
+    "name": "Petsc Development Container in Debugging Mode",
+    "image": "petsc:v3.21.1-debug",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "eamodio.gitlens",
+                "donjayamanne.githistory",
+                "ms-python.python",
+                "xaver.clang-format"
+            ]
+        }
+    },
+    "remoteUser": "root",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    ],
+    "workspaceFolder": "/workspace"
+}

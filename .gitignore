@@ -1,0 +1,33 @@
+# Ignore everything
+/*
+
+# Exceptions: directories to include
+!include/
+!src/
+!examples/
+!tests/
+
+# Exceptions: specific files to include
+!README.md
+!makefile
+!Doxyfile
+
+# Exceptions: .vscode files
+!.vscode/
+
+# Ignore anything temporary in .devcontainer
+!.devcontainer/
+.devcontainer/*.tmp
+
+# Exceptions: Format
+!.clang-format
+
+# Exceptions: Git
+!.gitignore
+
+# Exceptions: Dockerfile
+!Dockerfile
+
+# Ignore Python bytecode files and cache directories
+**/*.py[cod]
+**/__pycache__/
