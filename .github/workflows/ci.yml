@@ -13,7 +13,7 @@ jobs:
     steps:
       # 1) Check out the code
       - name: Checkout code
-        uses: actions/checkout@v3
+        actions/upload-artifact@v4
 
       # 2) Build Docker image
       - name: Build Docker image
