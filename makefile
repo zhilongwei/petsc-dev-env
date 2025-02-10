@@ -14,6 +14,9 @@ OBJ_DIR       := $(BUILD)/objects
 APP_DIR       := $(BUILD)/apps
 TEST_DIR      := $(BUILD)/tests
 
+HTML_DIR	  := ./html
+LATEX_DIR	  := ./latex
+
 # Include paths
 INCLUDE       := -Iinclude -I${PETSC_DIR}/include -I/usr/local/include
 
@@ -108,4 +111,4 @@ clean::
 	-@rm -rf $(OBJ_DIR)/* $(APP_DIR)/* $(TEST_DIR)/*
 
 cleanall: clean
-	-@rm -rf $(BUILD)
+	-@rm -rf $(BUILD) $(HTML_DIR) $(LATEX_DIR)
