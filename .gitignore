@@ -11,6 +11,7 @@
 !README.md
 !makefile
 !Doxyfile
+!LICENSE
 
 # Exceptions: .vscode files
 !.vscode/
