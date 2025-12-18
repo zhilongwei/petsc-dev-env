@@ -1,0 +1,10 @@
+---
+BasedOnStyle: Microsoft
+BreakBeforeBraces: Allman
+ColumnLimit: '80'
+IndentWidth: '4'
+Language: Cpp
+Standard: Cpp11
+UseTab: Never
+AccessModifierOffset: 4
+IndentAccessModifiers: true

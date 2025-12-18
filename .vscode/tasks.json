@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: configure",
+      "type": "shell",
+      "command": "cmake --preset debug",
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake: build",
+      "type": "shell",
+      "command": "cmake --build --preset debug",
+      "dependsOn": [
+        "CMake: configure"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "CTest: run",
+      "type": "shell",
+      "command": "ctest --preset debug",
+      "dependsOn": [
+        "CMake: build"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Clang-Format: apply",
+      "type": "shell",
+      "command": "bash -lc \"find src tests -name '*.cc' -o -name '*.h' | xargs clang-format -i\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Clang-Tidy: check",
+      "type": "shell",
+      "command": "bash -lc \"find ${workspaceFolder}/src ${workspaceFolder}/tests -name '*.cc' -print0 | xargs -0 clang-tidy -p ${workspaceFolder}/build/debug\"",
+      "dependsOn": [
+        "CMake: configure"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "Valgrind: app",
+      "type": "shell",
+      "command": "valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ${workspaceFolder}/build/debug/${input:appName}",
+      "dependsOn": [
+        "CMake: build"
+      ],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "appName",
+      "type": "promptString",
+      "description": "Executable name under build/debug",
+      "default": "main"
+    }
+  ]
+}

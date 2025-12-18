@@ -1,0 +1,77 @@
+{
+    "name": "PETSc Dev (Docker)",
+    "image": "petsc-env",
+    // "build": {
+    //    "dockerfile": "../Dockerfile",
+    //    "context": "..",
+    //    "args": {
+    //        "PETSC_BUILD_TYPE": "debug",
+    //        "PETSC_REF": "release"
+    //    }
+    // },
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    // WARNING: Running as root means files created in /workspace will be owned by root.
+    // On Linux, you may need 'sudo chown' to edit them outside VS Code.
+    "remoteUser": "root",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                // CMake Settings
+                "cmake.generator": "Ninja",
+                "cmake.configureOnOpen": true,
+                "cmake.buildDirectory": "${workspaceFolder}/build",
+                // INTELLISENSE CONFIGURATION
+                // We explicitly disable MS C/C++ IntelliSense so it doesn't fight with clangd
+                "C_Cpp.intelliSenseEngine": "disabled",
+                "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+                // Clangd Settings
+                "clangd.path": "/usr/bin/clangd",
+                "clangd.arguments": [
+                    "--background-index",
+                    "--clang-tidy",
+                    "--completion-style=detailed",
+                    "--header-insertion=iwyu",
+                    "-j=4"
+                ],
+                // Format on save
+                "editor.formatOnSave": true,
+                "editor.formatOnSaveMode": "modifications",
+                "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+                "[c]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+                },
+                "[cpp]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+                },
+                "[cuda-cpp]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+                }
+            },
+            "extensions": [
+                "ms-vscode.cmake-tools",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "eamodio.gitlens",
+                "ms-python.python",
+                "webfreak.debug",
+                "xaver.clang-format",
+                "openai.chatgpt"
+            ]
+        }
+    },
+    "postCreateCommand": "bash -c 'echo \"PETSC_DIR=$PETSC_DIR\"; echo \"PETSC_ARCH=$PETSC_ARCH\"; command -v mpicc || echo \"WARNING: mpicc not found in PATH\"'",
+    // Only keep this if you added 'ccache' to your Dockerfile!
+    "mounts": [
+        "source=petsc-ccache,target=/root/.ccache,type=volume"
+    ],
+    "runArgs": [
+        "--init",
+        "--ulimit",
+        "core=-1",
+        // CRITICAL: Required for GDB and Valgrind to work inside Docker
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ]
+}
