@@ -16,3 +16,6 @@
 *.so
 *.dylib
 *.exe
+
+# Local caches
+.cache/
