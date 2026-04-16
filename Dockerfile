@@ -14,7 +14,7 @@ ENV PETSC_DIR=/opt/petsc \
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        ca-certificates curl wget git \
+    ca-certificates curl wget git openssh-client \
         build-essential gfortran cmake ninja-build pkg-config \
         python3 python3-pip python3-venv python3-numpy \
         clangd clang-tidy clang-format valgrind gdb \
