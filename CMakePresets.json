@@ -6,25 +6,37 @@
   },
   "configurePresets": [
     {
-      "name": "debug",
-      "displayName": "Debug",
+      "name": "base",
+      "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "PETSC_DIR": "/opt/petsc",
-        "PETSC_ARCH": "arch-linux-c-debug"
+        "PETSC_DIR": "$env{PETSC_DIR}",
+        "PETSC_ARCH": "$env{PETSC_ARCH}"
+      }
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "debug-tests",
+      "displayName": "Debug Tests",
+      "inherits": "debug",
+      "cacheVariables": {
+        "ENABLE_TESTS": "ON"
       }
     },
     {
       "name": "release",
       "displayName": "Release",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/${presetName}",
+      "inherits": "base",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "PETSC_DIR": "/opt/petsc",
-        "PETSC_ARCH": "arch-linux-c-release"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
   ],
@@ -34,21 +46,18 @@
       "configurePreset": "debug"
     },
     {
+      "name": "debug-tests",
+      "configurePreset": "debug-tests"
+    },
+    {
       "name": "release",
       "configurePreset": "release"
     }
   ],
   "testPresets": [
     {
-      "name": "debug",
-      "configurePreset": "debug",
-      "output": {
-        "outputOnFailure": true
-      }
-    },
-    {
-      "name": "release",
-      "configurePreset": "release",
+      "name": "debug-tests",
+      "configurePreset": "debug-tests",
       "output": {
         "outputOnFailure": true
       }

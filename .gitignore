@@ -8,6 +8,7 @@
 
 # Local IDE settings
 /.vscode/*
+!/.vscode/settings.json
 !/.vscode/tasks.json
 
 # Build artifacts

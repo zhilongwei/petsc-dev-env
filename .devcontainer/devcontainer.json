@@ -60,7 +60,7 @@
             ]
         }
     },
-    "postCreateCommand": "bash -c 'echo \"PETSC_DIR=$PETSC_DIR\"; echo \"PETSC_ARCH=$PETSC_ARCH\"; command -v mpicc || echo \"WARNING: mpicc not found in PATH\"'",
+    "postCreateCommand": "bash -lc 'echo \"PETSC_DIR=$PETSC_DIR\"; echo \"PETSC_ARCH=$PETSC_ARCH\"; command -v mpicc || echo \"WARNING: mpicc not found in PATH\"; cmake --preset debug-tests'",
     // Only keep this if you added 'ccache' to your Dockerfile!
     "mounts": [
         "source=petsc-ccache,target=/root/.ccache,type=volume"
