@@ -43,5 +43,5 @@ class Foo
          * @return PetscErrorCode Returns 0 on success, or a non-zero error code
          * on failure.
          */
-        PetscErrorCode printHelloWorld() const;
+        [[nodiscard]] PetscErrorCode printHelloWorld() const;
 };

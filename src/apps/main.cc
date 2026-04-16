@@ -1,7 +1,7 @@
 #include "foo.h"
 #include <petscsys.h>
 
-static char help[] = "Main to test\n\n";
+static const char help[] = "Main to test\n\n";
 
 int main(int argc, char **argv)
 {
