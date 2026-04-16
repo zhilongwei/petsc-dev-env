@@ -1,4 +1,12 @@
 {
   "cmake.configureOnEdit": false,
-  "cmake.useCMakePresets": "always"
+  "cmake.useCMakePresets": "always",
+  "clangd.arguments": [
+    "--compile-commands-dir=/workspace/build/debug-tests",
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--header-insertion=iwyu",
+    "-j=4"
+  ]
 }
