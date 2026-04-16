@@ -4,7 +4,7 @@ BreakBeforeBraces: Allman
 ColumnLimit: '80'
 IndentWidth: '4'
 Language: Cpp
-Standard: Cpp17
+Standard: c++17
 UseTab: Never
 AccessModifierOffset: 4
 IndentAccessModifiers: true
